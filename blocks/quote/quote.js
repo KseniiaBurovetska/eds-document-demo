@@ -1,10 +1,4 @@
-import { fetchPlaceholders } from '../../scripts/aem.js';
-
 export default async function decorate(block) {
-  const locale = window.location.pathname.split('/')[1];
-  const placeholders = await fetchPlaceholders(`/${locale}`);
-  const { key1 } = placeholders;
-
   const [quotation, attribution] = [...block.children].map((c) => c.firstElementChild);
   const blockquote = document.createElement('blockquote');
   // decorate quotation
@@ -21,9 +15,6 @@ export default async function decorate(block) {
       em.replaceWith(cite);
     });
   }
-  const placeholderElement = document.createElement('div');
-  placeholderElement.innerText = key1;
-  blockquote.append(placeholderElement);
 
   block.innerHTML = '';
   block.append(blockquote);
